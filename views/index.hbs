@@ -16,15 +16,16 @@
             <input type="email" name="email" id="" placeholder="Email" required>
             <input type="password" name="password" id="" placeholder="Password" required>
             <input type="password" name="cpassword" placeholder="Confirm Password" id="" required>
+            <span class="pssnotmt">{{msg}}</span>
             <button onclick="SubmitEvent">SUBMIT</button>
         </form>
         </div>
         <div class="login">
-            <form action="">
+            <form action="/login" method="post">
             <label for="chk" aria-hidden="true" >Login</label>
             <input type="email" name="email" id="" placeholder="email" required>
             <input type="password" name="password" id="" required>
-            <button>SUBMIT</button>
+            <button onclick="SubmitEvent">SUBMIT</button>
         </form>
         </div>
     </div>
