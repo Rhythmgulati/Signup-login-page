@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <input type="checkbox" name="" id="chk" aria-hidden="true">
+        <div class="sign-up">
+            <form action="/register" method="post">
+            <label for="chk" aria-hidden="true">Sign-up</label>
+            <input type="text" placeholder="Enter Name" name="username" required>
+            <input type="email" name="email" id="" placeholder="Email" required>
+            <input type="password" name="password" id="" placeholder="Password" required>
+            <input type="password" name="cpassword" placeholder="Confirm Password" id="" required>
+            <button onclick="SubmitEvent">SUBMIT</button>
+        </form>
+        </div>
+        <div class="login">
+            <form action="">
+            <label for="chk" aria-hidden="true" >Login</label>
+            <input type="email" name="email" id="" placeholder="email" required>
+            <input type="password" name="password" id="" required>
+            <button>SUBMIT</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
