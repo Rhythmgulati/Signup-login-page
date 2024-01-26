@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
-
-
+const bcrypt = require("bcryptjs");
 const registrationschema = mongoose.Schema({
     name:String,
     email:{
@@ -18,6 +17,11 @@ const registrationschema = mongoose.Schema({
         minlength:6
     }
 })
+
+registrationschema.pre("save",async function(next){
+  this.password = await bcrypt.hash(this.password,10);
+  next();
+});
 
 const registration = mongoose.model('Registration',registrationschema);
 

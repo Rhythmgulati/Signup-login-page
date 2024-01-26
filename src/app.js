@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const bcrypt = require("bcryptjs");
 const port = process.env.PORT || 8000;
 require("./db/conn");
 const registration = require("./models/registration");
@@ -43,9 +44,17 @@ app.post("/login",async (req,res)=>{
         const email = req.body.email;
         const password = req.body.password;
         console.log(email,password);
-        res.send("comleted")
+        const data = await registration.findOne({email:email});
+        console.log(data);
+
+        const isMatch = await bcrypt.compare(password,data.password)
+        if(isMatch){
+            res.render("index")
+        }else{
+            res.send("invalid login credentials")
+        }
     } catch (error) {
-        
+       res.status(400).send("invalid email") 
     }
 })
 app.listen(port);
