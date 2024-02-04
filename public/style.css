@@ -12,6 +12,12 @@ body,html{
     align-items: center;
     display: flex;
 }
+#mainpage{
+    position: absolute;
+    top: 10px;
+    right: 2%;
+    color: white;
+}
 .container{
     height: 500px;
     width: 350px;
@@ -31,7 +37,8 @@ label{
     font-size: 2.3rem;
     justify-content: center;
     display: flex;
-    margin: 60px;
+    margin-bottom: 60px;
+    margin-top: 50px;
     font-weight: bold;
     cursor: pointer;
     transition: .5s ease-in-out;
@@ -69,6 +76,7 @@ button{
     height: 460px;
     background: #eee;
     border-radius: 60% / 10%;
+    margin-top: 20px;
     transform: translateY(-180px);
     transition: .8s ease-in-out;
 }
@@ -84,4 +92,11 @@ button{
 }
 #chk:checked ~ .sign-up label{
     transform:scale(0);
+}
+.pssnotmt{
+    text-align: center;
+    color: wheat;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Times New Roman', Times, serif;
 }

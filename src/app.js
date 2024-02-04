@@ -1,13 +1,18 @@
+require('dotenv').config({path:'../.env'});
 const express = require("express");
 const app = express();
 const path = require("path");
 const bcrypt = require("bcryptjs");
+var cookieParser = require('cookie-parser');
 const port = process.env.PORT || 8000;
+const auth = require("./middleware/auth")
+
 require("./db/conn");
 const registration = require("./models/registration");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 const staticpath = path.join(__dirname,"../public");
 app.use(express.static(staticpath));
 app.set("view engine","hbs");
@@ -30,6 +35,12 @@ app.post("/register",async (req,res)=>{
           email:req.body.email,
           password:req.body.password
         })
+        const token = await newregistration.generateAuthToken();
+        console.log(token);
+        res.cookie("jwt",token,{
+            expires:new Date(Date.now() + 30000),
+            httpOnly:true
+        });
         newregistration.save();
         res.render("index");
     }else{
@@ -46,15 +57,26 @@ app.post("/login",async (req,res)=>{
         console.log(email,password);
         const data = await registration.findOne({email:email});
         console.log(data);
-
-        const isMatch = await bcrypt.compare(password,data.password)
+        console.log(password)
+        const isMatch =await bcrypt.compare(password, data.password);
+        const token = await data.generateAuthToken();
+        
+        res.cookie("jwt",token,{
+            httpOnly:true
+        });
+        console.log(isMatch);
+        console.log("token is " + req.cookies.jwt);
         if(isMatch){
             res.render("index")
         }else{
-            res.send("invalid login credentials")
+            res.send("invalid login credentials");
         }
     } catch (error) {
        res.status(400).send("invalid email") 
     }
+})
+
+app.get('/main',auth,(req,res)=>{
+    res.render("main")
 })
 app.listen(port);
